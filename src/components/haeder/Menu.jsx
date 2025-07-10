@@ -8,8 +8,8 @@ const Menu = () => {
         { href: "", title: "Home" },
         { href: "hehe", title: "Shop" },
         { href: "products", title: "Product" },
-        { href: "#none", title: "Blog" },
-        { href: "#none", title: "Fetured" },
+        { href: "products", title: "Blog" },
+        { href: "products", title: "Fetured" },
     ];
 
     const handleClick = (href) => {
