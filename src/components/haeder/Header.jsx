@@ -95,7 +95,7 @@ const Header = () => {
                                                     <div className="absolute -left-10 mt-6 w-40 bg-white shadow-md rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
                                                         <ul className="py-2 text-sm text-gray-700">
                                                             <li>
-                                                                <NavLink href={"login"} className="block px-4 py-2 hover:bg-gray-100">Đăng nhập</NavLink>
+                                                                <NavLink to={"login"} className="block px-4 py-2 hover:bg-gray-100">Đăng nhập</NavLink>
                                                             </li>
                                                             <li>
                                                                 <NavLink className="block px-4 py-2 hover:bg-gray-100">Đăng ký</NavLink>
