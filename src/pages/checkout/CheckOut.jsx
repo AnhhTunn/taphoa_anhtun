@@ -17,7 +17,9 @@ const Checkout = () => {
         }));
     };
     const { cartItems, clearCart } = useCart();
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const FeeShip = 30.99;
+    const totalPriceProducts = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const totalPrice = totalPriceProducts > 100 ?totalPriceProducts:totalPriceProducts+FeeShip
     const [orderSuccess, setOrderSuccess] = useState("");
     const handleOrder = () => {
         const newOrder = {
@@ -72,7 +74,6 @@ const Checkout = () => {
             console.log(error);
         }
     };
-    const FeeShip = 30.99;
     return (
         <>
             {orderSuccess && (
@@ -169,7 +170,7 @@ const Checkout = () => {
                                     <img src={qrCode} alt="VietQR" className="mx-auto w-48" />
                                 </div>
                             )}
-                            {totalPrice > 100 ? (
+                            {totalPriceProducts > 100 ? (
                                 null
                             ) : (
                                 <div className="pt-4 text-right text-lg font-bold text-black">
@@ -177,7 +178,7 @@ const Checkout = () => {
                                 </div>
                             )}
                             <div className="border-t pt-4 text-right text-lg font-bold text-red-600">
-                                Thành tiền: {(totalPrice > 100 ? (totalPrice) : (totalPrice + FeeShip)).toLocaleString()}₫
+                                Thành tiền: {(totalPriceProducts > 100 ? (totalPriceProducts) : (totalPriceProducts + FeeShip)).toLocaleString()}₫
                             </div>
 
                             <div className="flex items-center gap-2">

@@ -8,7 +8,7 @@ const PurchaseHistory = () => {
         const stored = JSON.parse(localStorage.getItem("purchaseHistory")) || [];
         setOrders(stored);
     }, []);
-
+    
     return (
         <>
             <Fade
