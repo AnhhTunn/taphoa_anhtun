@@ -58,7 +58,7 @@ const BestSeller = () => {
 
     return (
         <>
-            <div className=' pt-5'>
+            <div className='pt-5'>
                 <Fade
                     in={true}
                     timeout={1500}

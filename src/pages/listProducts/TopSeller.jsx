@@ -46,7 +46,7 @@ const TopSeller = () => {
                 const sorted = [...fetchedProducts].sort(
                     (a, b) => b.minimumOrderQuantity - a.minimumOrderQuantity
                 );
-                const topSeller = sorted.slice(0, 40);
+                const topSeller = sorted.slice(0, 20);
                 setProducts(topSeller);
             } catch (error) {
                 console.log("Lỗi khi load sản phẩm:", error);
@@ -57,7 +57,7 @@ const TopSeller = () => {
     }, [filterProduct]);
     return (
         <>
-            <div className='bg-[#ebebe9] pt-5'>
+            <div className=' pt-5'>
                 <Fade
                     in={true}
                     timeout={1500}

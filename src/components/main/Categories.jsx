@@ -9,10 +9,10 @@ import { NavLink } from 'react-router-dom'
 import { Box, Fade } from '@mui/material'
 const Categories = () => {
     const list_Collection = [
-        { image: foods, href: "foods", title: "Foods" },
-        { image: cosmetics, href: "cosmetics", title: "Cosmetics" },
-        { image: kitchen, href: "kitchen", title: "Kitchen" },
-        { image: fashion, href: "fashion", title: "Fashion" },
+        { image: foods, href: "products", title: "Foods" },
+        { image: cosmetics, href: "products", title: "Cosmetics" },
+        { image: kitchen, href: "products", title: "Kitchen" },
+        { image: fashion, href: "products", title: "Fashion" },
     ]
     return (
         <section className="my-10">

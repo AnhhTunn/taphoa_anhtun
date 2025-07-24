@@ -4,11 +4,17 @@ import './index.css'
 import App from './App.jsx'
 import { Provider } from 'react-redux'
 import store from './reduxs/store.js'
-
+import { CartProvider } from './context/CartContext.jsx'
+const storedUser = JSON.parse(localStorage.getItem('user'));
+const userId = storedUser?.id || 'guest';
 createRoot(document.getElementById('root')).render(
-     <React.StrictMode>
+
+  <React.StrictMode>
     <Provider store={store}>
-      <App />
+
+      <CartProvider userId={userId}>
+        <App />
+      </CartProvider>
     </Provider>
   </React.StrictMode>
 )

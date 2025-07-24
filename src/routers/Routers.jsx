@@ -3,8 +3,14 @@ import Layout from "../components/Layout";
 import Home from "../pages/home/Home";
 import ListProducts from "../pages/listProducts/ListProducts";
 import TopSeller from "../pages/listProducts/TopSeller";
-import Test from "../components/products/Test";
 import Products from "../components/products/Products";
+import MainProducts from "../components/products/MainProducts";
+import Login from "../pages/auth/Login";
+import ShoppingCart from "../pages/cart/ShoppingCart";
+import Checkout from "../pages/checkout/Checkout";
+import Profile from "../pages/profile/Profile";
+import ProfileOverview from "../pages/profile/ProfileOverview";
+import PurchaseHistory from "../pages/profile/PurchaseHistory";
 
 const router = createBrowserRouter([
     {
@@ -17,10 +23,18 @@ const router = createBrowserRouter([
             },
             {
                 path: "products",
-                element: <Test />,
+                element: <MainProducts />,
                 children: [
                     {
                         path: "",
+                        element: <Products />,
+                    },
+                    {
+                        path: "search",
+                        element: <Products />,
+                    },
+                    {
+                        path: "category/:categoryName",
                         element: <Products />,
                     }
                 ]
@@ -44,6 +58,32 @@ const router = createBrowserRouter([
             {
                 path: "bestseller",
                 element: <TopSeller />,
+            },
+            {
+                path: "/login",
+                element: <Login />,
+            },
+            {
+                path: "cart",
+                element: <ShoppingCart />,
+            },
+            {
+                path: "checkout",
+                element: <Checkout />,
+            },
+            {
+                path: "profile",
+                element: <Profile />,
+                children: [
+                    {
+                        path: "",
+                        element: <ProfileOverview />,
+                    },
+                    {
+                        path: "purchaseHistory",
+                        element: <PurchaseHistory />,
+                    },
+                ]
             },
         ]
     },

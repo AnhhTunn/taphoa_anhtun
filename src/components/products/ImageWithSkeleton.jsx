@@ -6,7 +6,7 @@ const ImageWithSkeleton = ({ src, alt, onLoad }) => {
 
     const handleLoad = () => {
         setLoaded(true)
-        if (onLoad) onLoad()  // Gọi callback từ parent nếu có
+        if (onLoad) onLoad()
     }
 
     return (

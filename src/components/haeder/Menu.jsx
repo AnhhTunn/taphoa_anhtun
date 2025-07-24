@@ -6,10 +6,9 @@ const Menu = () => {
     const dispatch = useDispatch();
     const listMenu = [
         { href: "", title: "Home" },
-        { href: "products", title: "Shop" },
         { href: "products", title: "Product" },
-        { href: "products", title: "Blog" },
-        { href: "products", title: "Fetured" },
+        { href: "#none", title: "Blog" },
+        { href: "#none", title: "Fetured" },
     ];
 
     const handleClick = (href) => {
