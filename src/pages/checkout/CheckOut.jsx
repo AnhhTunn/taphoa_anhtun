@@ -68,7 +68,9 @@ const Checkout = () => {
         try {
             await getApiProfile.updateProfile(profile.id, profile);
             setOrderSuccess('Cập nhật thông tin thành công!');
-            setTimeout(() => window.location.reload(), 2000)
+            setTimeout(() => {
+                navigate(0);
+            }, 2000);
         } catch (error) {
             console.log(error);
         }
