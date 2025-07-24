@@ -60,7 +60,7 @@ const router = createBrowserRouter([
                 element: <TopSeller />,
             },
             {
-                path: "/login",
+                path: "login",
                 element: <Login />,
             },
             {
