@@ -19,7 +19,7 @@ const Checkout = () => {
     const { cartItems, clearCart } = useCart();
     const FeeShip = 30.99;
     const totalPriceProducts = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const totalPrice = totalPriceProducts > 100 ?totalPriceProducts:totalPriceProducts+FeeShip
+    const totalPrice = totalPriceProducts > 100 ? totalPriceProducts : totalPriceProducts + FeeShip
     const [orderSuccess, setOrderSuccess] = useState("");
     const handleOrder = () => {
         const newOrder = {
@@ -57,7 +57,6 @@ const Checkout = () => {
             fetchProfile(user.id);
         }
     }, []);
-    setTimeout(() => setOrderSuccess(""), 5000);
     const fetchProfile = async (accountId) => {
         const data = await getApiProfile.getProfileByAccountId(accountId);
         if (data && data.length > 0) {
@@ -68,12 +67,13 @@ const Checkout = () => {
         if (!profile?.id) return;
         try {
             await getApiProfile.updateProfile(profile.id, profile);
-            alert('Cập nhật thông tin thành công!');
-            window.location.reload();
+            setOrderSuccess('Cập nhật thông tin thành công!');
+            setTimeout(() => window.location.reload(), 2000)
         } catch (error) {
             console.log(error);
         }
     };
+    setTimeout(() => setOrderSuccess(""), 5000);
     return (
         <>
             {orderSuccess && (
