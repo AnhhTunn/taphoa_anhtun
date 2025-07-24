@@ -7,7 +7,7 @@ import Products from "../components/products/Products";
 import MainProducts from "../components/products/MainProducts";
 import Login from "../pages/auth/Login";
 import ShoppingCart from "../pages/cart/ShoppingCart";
-import Checkout from "../pages/checkout/Checkout";
+import CheckOut from "../pages/checkout/CheckOut";
 import Profile from "../pages/profile/Profile";
 import ProfileOverview from "../pages/profile/ProfileOverview";
 import PurchaseHistory from "../pages/profile/PurchaseHistory";
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "checkout",
-                element: <Checkout />,
+                element: <CheckOut />,
             },
             {
                 path: "profile",
