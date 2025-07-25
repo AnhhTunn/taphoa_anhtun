@@ -130,7 +130,7 @@ const Header = () => {
                                                             <li className='cursor-pointer'>
                                                                 <BtnItem
                                                                     title="Đăng xuất"
-                                                                    classCss="block px-4 text-left py-2 w-full hover:bg-gray-100"
+                                                                    classCss="block px-4 text-left py-2 w-full hover:bg-gray-100 cursor-pointer"
                                                                     onClick={handleLogout}
                                                                 ></BtnItem>
                                                             </li>

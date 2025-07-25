@@ -11,6 +11,7 @@ import CheckOut from "../pages/checkout/CheckOut";
 import Profile from "../pages/profile/Profile";
 import ProfileOverview from "../pages/profile/ProfileOverview";
 import PurchaseHistory from "../pages/profile/PurchaseHistory";
+import SellerItem from "../pages/listProducts/SellerItem";
 
 const router = createBrowserRouter([
     {
@@ -58,6 +59,12 @@ const router = createBrowserRouter([
             {
                 path: "bestseller",
                 element: <TopSeller />,
+                children: [
+                    {
+                        path: "",
+                        element: <SellerItem />,
+                    }
+                ]
             },
             {
                 path: "login",

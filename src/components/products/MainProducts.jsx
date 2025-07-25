@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import img_product_list_banner from '../../assets/images/img_product_list_banner.webp'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Box, Fade } from '@mui/material';
 const MainProducts = () => {
     const navigate = useNavigate();
@@ -23,8 +23,11 @@ const MainProducts = () => {
         { name: 'In stock', count: 16 },
         { name: 'Out of stock', count: 1 },
     ];
-
-
+    const location = useLocation();
+    const selectedCategory = location.pathname.split("/").pop();
+    const handleAllProducts = () => {
+        navigate(`/products`);
+    }
     return (
         <Fade
             in={true}
@@ -33,7 +36,7 @@ const MainProducts = () => {
             <Box>
                 <div className='w-full '>
                     <div className='w-full'>
-                        <img src={img_product_list_banner} alt="" />
+                        <img className='w-full h-[200px]' src={img_product_list_banner} alt="" />
                     </div>
                     <div className='grid wide'>
                         <div className='row '>
@@ -41,16 +44,24 @@ const MainProducts = () => {
                             <div className='col l-3 m-tablet-0 c-0'>
                                 <div className="py-4">
                                     <div className="mb-6">
-                                        <h3 className="font-semibold text-lg mb-2">Category</h3>
+                                        <h3 className="font-semibold text-lg mb-2 cursor-pointer"
+                                            onClick={handleAllProducts}
+                                        >Category</h3>
                                         <ul className="space-y-1">
                                             {categories.map((item, index) => (
                                                 <li
                                                     key={index}
                                                     onClick={() => handleCategoryClick(item.key)}
-                                                    className="text-gray-700 hover:text-black cursor-pointer flex justify-between"
+                                                    className={`cursor-pointer flex justify-between px-2 py-1 rounded 
+                                                        ${selectedCategory === item.key
+                                                            ? "text-red-500"
+                                                            : "text-gray-700 hover:text-black"
+                                                        }`}
                                                 >
                                                     <span>{item.name}</span>
-                                                    <span className="text-gray-500">({item.count})</span>
+                                                    <span className={selectedCategory === item.key ? "text-red-500" : "text-gray-500"}>
+                                                        ({item.count})
+                                                    </span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -61,10 +72,10 @@ const MainProducts = () => {
                                             {availability.map((item, index) => (
                                                 <li
                                                     key={index}
-                                                    className="text-gray-700 hover:text-black cursor-pointer flex justify-between"
+                                                    className="text-gray-700 hover:text-black cursor-pointer flex justify-between px-2 py-1 rounded "
                                                 >
                                                     <span>{item.name}</span>
-                                                    <span className="text-gray-500">({item.count})</span>
+                                                    <span className="text-gray-500">({item.count > 0 ? item.count : "0"})</span>
                                                 </li>
                                             ))}
                                         </ul>

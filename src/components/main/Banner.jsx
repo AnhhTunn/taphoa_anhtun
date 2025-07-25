@@ -25,7 +25,7 @@ const Banner = () => {
                         <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 md:px-10">
                             <div className="max-w-[1200px]">
                                 <h1 className="text-white/90 text-xl sm:text-2xl md:text-4xl font-bold text-center drop-shadow-xl">
-                                    Chào mừng đến với Darion Shop – nơi trải nghiệm mua sắm thời trang phong cách và hiện đại!
+                                    Chào mừng đến với Anh Tuấn Store – nơi trải nghiệm mua sắm thời trang phong cách và hiện đại!
                                 </h1>
                             </div>
                         </div>
