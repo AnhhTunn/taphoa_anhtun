@@ -44,6 +44,22 @@ export default function EditProfile({ idDetail, onClose }) {
     };
     const handleSave = async () => {
         if (!profile?.id) return;
+
+        const requiredFields = ['name', 'phone', 'birthDay', 'gender', 'email', 'thanhPho', 'huyen', 'diaChi'];
+        const emptyFields = requiredFields.filter((field) => !profile[field] && profile[field] !== false);
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emptyFields.length > 0) {
+            alert("Vui lòng điền đầy đủ thông tin vào tất cả các trường.");
+            return;
+        }
+
+        if (!emailRegex.test(profile.email)) {
+            alert("Email không đúng định dạng.");
+            return;
+        }
+
         try {
             await getApiProfile.updateProfile(profile.id, profile);
             alert('Cập nhật thông tin thành công!');
@@ -51,7 +67,7 @@ export default function EditProfile({ idDetail, onClose }) {
             window.location.reload();
         } catch (error) {
             console.log(error);
-
+            alert('Có lỗi xảy ra khi cập nhật.');
         }
     };
     return (
@@ -77,56 +93,99 @@ export default function EditProfile({ idDetail, onClose }) {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <div className="w-[500px] space-y-4 py-5 px-10">
-                        <div className="flex items-center justify-between">
-                            <label className="text-sm font-medium">Họ tên:</label>
-                            <input
-                                name="name"
-                                value={profile?.name || ''}
-                                onChange={handleChange}
-                                className="w-3/5 border p-2 rounded"
-                                placeholder="Họ và tên"
-                            />
+                    <div className="py-5 px-2 flex gap-5">
+                        <div className='space-y-4'>
+                            <div className="flex items-center justify-between">
+                                <label className="text-sm font-medium">Họ tên:</label>
+                                <input
+                                    name="name"
+                                    value={profile?.name || ''}
+                                    onChange={handleChange}
+                                    className="w-3/5 border p-2 rounded"
+                                    placeholder="Họ và tên"
+                                />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <label className="text-sm font-medium">Số điện thoại:</label>
+                                <input
+                                    name="phone"
+                                    value={profile?.phone || ''}
+                                    onChange={handleChange}
+                                    className="w-3/5 border p-2 rounded"
+                                    placeholder="Nhập số điện thoại"
+                                />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <label className="text-sm font-medium">Ngày sinh:</label>
+                                <input
+                                    name="birthDay"
+                                    value={profile?.birthDay || ''}
+                                    onChange={handleChange}
+                                    className="w-3/5 border p-2 rounded"
+                                    placeholder="Nhập số điện thoại"
+                                />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <label className="text-sm font-medium">Giới tính:</label>
+                                <select
+                                    name="gender"
+                                    value={profile?.gender ?? true}
+                                    onChange={(e) =>
+                                        handleChange({
+                                            target: {
+                                                name: 'gender',
+                                                value: e.target.value === 'true',
+                                            },
+                                        })
+                                    }
+                                    className="w-3/5 border p-2 rounded"
+                                >
+                                    <option value="true">Nam</option>
+                                    <option value="false">Nữ</option>
+                                </select>
+                            </div>
                         </div>
-                        <div className="flex items-center justify-between">
-                            <label className="text-sm font-medium">Số điện thoại:</label>
-                            <input
-                                name="phone"
-                                value={profile?.phone || ''}
-                                onChange={handleChange}
-                                className="w-3/5 border p-2 rounded"
-                                placeholder="Nhập số điện thoại"
-                            />
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <label className="text-sm font-medium">Tỉnh/Thành phố:</label>
-                            <input
-                                name="thanhPho"
-                                value={profile?.thanhPho || ''}
-                                onChange={handleChange}
-                                className="w-3/5 border p-2 rounded"
-                                placeholder="Tỉnh/thành phố"
-                            />
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <label className="text-sm font-medium">Quận/Huyện:</label>
-                            <input
-                                name="huyen"
-                                value={profile?.huyen || ''}
-                                onChange={handleChange}
-                                className="w-3/5 border p-2 rounded"
-                                placeholder="Quận/huyện"
-                            />
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <label className="text-sm font-medium">Địa chỉ:</label>
-                            <input
-                                name="diaChi"
-                                value={profile?.diaChi || ''}
-                                onChange={handleChange}
-                                className="w-3/5 border p-2 rounded"
-                                placeholder="Số nhà, tên đường"
-                            />
+                        <div className='space-y-4'>
+                            <div className="flex items-center justify-between">
+                                <label className="text-sm font-medium">Email:</label>
+                                <input
+                                    name="email"
+                                    value={profile?.email || ''}
+                                    onChange={handleChange}
+                                    className="w-3/5 border p-2 rounded"
+                                    placeholder="Số nhà, tên đường"
+                                />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <label className="text-sm font-medium">Tỉnh/Thành phố:</label>
+                                <input
+                                    name="thanhPho"
+                                    value={profile?.thanhPho || ''}
+                                    onChange={handleChange}
+                                    className="w-3/5 border p-2 rounded"
+                                    placeholder="Tỉnh/thành phố"
+                                />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <label className="text-sm font-medium">Quận/Huyện:</label>
+                                <input
+                                    name="huyen"
+                                    value={profile?.huyen || ''}
+                                    onChange={handleChange}
+                                    className="w-3/5 border p-2 rounded"
+                                    placeholder="Quận/huyện"
+                                />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <label className="text-sm font-medium">Địa chỉ:</label>
+                                <input
+                                    name="diaChi"
+                                    value={profile?.diaChi || ''}
+                                    onChange={handleChange}
+                                    className="w-3/5 border p-2 rounded"
+                                    placeholder="Số nhà, tên đường"
+                                />
+                            </div>
                         </div>
                     </div>
                 </DialogContent>
