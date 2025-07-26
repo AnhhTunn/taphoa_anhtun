@@ -4,11 +4,11 @@ import background from '../../assets/images/background.jpg';
 import BtnItem from '../../components/items/itemBtn/BtnItem';
 import getApiAccounts from '../../services/Account/ApiAccount';
 import { Alert, Box, Fade } from '@mui/material';
+import getApiProfile from '../../services/Account/ApiProfile';
 
 const Login = () => {
     const navigate = useNavigate();
-    const [isRegister, setIsRegister] = useState(false); // Toggle login/register
-
+    const [isRegister, setIsRegister] = useState(false);
     const [formData, setFormData] = useState({
         userName: "",
         passWord: "",
@@ -85,14 +85,35 @@ const Login = () => {
                 return;
             }
 
+            // 1. Tạo tài khoản mới
             const newUser = { userName, passWord, email, phone };
-            await getApiAccounts.addAccount(newUser);
+            const createdAccount = await getApiAccounts.addAccount(newUser);
+
+            if (createdAccount && createdAccount.id) {
+                // 2. Tạo profile đi kèm
+                const newProfile = {
+                    accountID: createdAccount.id,
+                    name: "",
+                    phone: createdAccount.phone,
+                    birthDay: "",
+                    gender: false,
+                    email: createdAccount.email,
+                    thanhPho: "",
+                    huyen: "",
+                    diaChi: ""
+                };
+
+                await getApiProfile.addProfile(newProfile);
+            }
+
             setSuccessMsg("Đăng ký thành công! Vui lòng đăng nhập.");
             setIsRegister(false);
-        } catch {
+        } catch (err) {
+            console.log(err);
             setErrorMsg("Lỗi khi đăng ký");
         }
     };
+
 
     useEffect(() => {
         if (errorMsg || successMsg) {

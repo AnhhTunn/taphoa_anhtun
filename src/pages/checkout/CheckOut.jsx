@@ -34,14 +34,10 @@ const Checkout = () => {
                 avatar: item.thumbnail
             }))
         };
-        // Lấy danh sách đơn hàng cũ từ localStorage
         const existingOrders = JSON.parse(localStorage.getItem("purchaseHistory")) || [];
-        // Thêm đơn hàng mới vào đầu danh sách
         const updatedOrders = [newOrder, ...existingOrders];
-        // Lưu lại vào localStorage
         localStorage.setItem("purchaseHistory", JSON.stringify(updatedOrders));
         setOrderSuccess("Đặt hàng thành công");
-        console.log(newOrder);
 
         setTimeout(() => {
             clearCart();
