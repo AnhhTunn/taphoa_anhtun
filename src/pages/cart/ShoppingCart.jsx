@@ -19,6 +19,7 @@ const ShoppingCart = () => {
             setCheckCart("Giỏ hàng đang trống");
             return;
         }
+        localStorage.removeItem("checkoutItem");
         navigate('/checkout');
     }
     setTimeout(() => setCheckCart(""), 2000)

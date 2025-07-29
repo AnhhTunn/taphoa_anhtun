@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = "https://dummyjson.com/products";
 
 const getApi = {
-     getTotal: async () => {
+    getTotal: async () => {
         try {
             const res = await axios.get(BASE_URL);
             if (res.status === 200) {
@@ -36,6 +36,14 @@ const getApi = {
             console.log("Lỗi xảy ra khi gọi API fetchProducts:", error);
         }
     },
+    fetchDetailProduct: async (id) => {
+        try {
+            const res = await axios.get(`${BASE_URL}/${id}`)
+            return res.data
+        } catch (error) {
+            console.log("Lỗi xảy ra khi gọi API fetchDetailProduct:", error);
+        }
+    }
 };
 
 export default getApi;

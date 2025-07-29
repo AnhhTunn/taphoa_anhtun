@@ -4,11 +4,13 @@ import ImageWithSkeleton from './ImageWithSkeleton'
 import BtnItem from '../items/itemBtn/BtnItem'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../../context/CartContext'
-
+import { useDispatch } from 'react-redux';
+import { setSelectedProduct } from '../../reduxs/slices/productSlice'
 const ItemProduct = (props) => {
+    const dispatch = useDispatch();
     const { addToCart } = useCart();
     const { data, icon, star } = props
-    const { thumbnail, title, price, rating } = data
+    const { id, thumbnail, title, price, rating } = data
     const { active, gray } = star
     const navigate = useNavigate();
 
@@ -20,8 +22,12 @@ const ItemProduct = (props) => {
             <img key={i} className="size-3 inline-block" src={i < rating ? active : gray} alt="" />
         )
     }
-    const [addCart,setAddCart]=useState();
-    setTimeout(()=>setAddCart(""),2000)
+    const [addCart, setAddCart] = useState();
+    const btnDetail = (id) => {
+        dispatch(setSelectedProduct(id));
+        navigate(`/detail/${id}`);
+    }
+    setTimeout(() => setAddCart(""), 2000)
     return (
         <>
             {addCart && (
@@ -39,7 +45,6 @@ const ItemProduct = (props) => {
                 >
                     <Box>
                         <div className='relative group text-center mb-5'>
-                            {/* icon action */}
                             <ul className="absolute bottom-28 left-4 z-10 flex flex-col gap-3">
                                 {icon.map((icon, idx) => (
                                     <li
@@ -56,7 +61,7 @@ const ItemProduct = (props) => {
                             </ul>
 
                             {/* Image with skeleton */}
-                            <div className='rounded-xl overflow-hidden bg-[#ebebe9]'>
+                            <div className='rounded-xl overflow-hidden bg-[#ebebe9]' onClick={() => btnDetail(id)}>
                                 <ImageWithSkeleton src={thumbnail} alt="ảnh sản phẩm" onLoad={() => setLoaded(true)} />
                             </div>
 

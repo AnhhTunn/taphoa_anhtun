@@ -13,7 +13,7 @@ const Menu = () => {
 
     const handleClick = (href) => {
         if (href === "products") {
-            dispatch(setKeyword("")); // Reset tìm kiếm về mặc định
+            dispatch(setKeyword(""));
         }
     };
 

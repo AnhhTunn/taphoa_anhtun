@@ -88,7 +88,7 @@ const Products = () => {
     // ------------------------- Event Handlers -------------------------
     const btnAdd = (id) => {
         console.log("Thêm vào giỏ hàng:", id);
-        
+
     };
 
     const handleChangePage = (page) => {

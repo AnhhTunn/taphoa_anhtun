@@ -35,6 +35,7 @@ const Header = () => {
     const handleLogout = () => {
         localStorage.removeItem("user")
         localStorage.removeItem("purchaseHistory")
+        localStorage.removeItem("checkoutItem");
         window.location.href = "/";
     }
     const { cartItems } = useCart();

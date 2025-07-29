@@ -12,6 +12,7 @@ import Profile from "../pages/profile/Profile";
 import ProfileOverview from "../pages/profile/ProfileOverview";
 import PurchaseHistory from "../pages/profile/PurchaseHistory";
 import SellerItem from "../pages/listProducts/SellerItem";
+import DetailProduct from "../pages/listProducts/DetailProduct";
 
 const router = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
                         element: <Products />,
                     }
                 ]
+            },
+            {
+                path: "detail/:id",
+                element: <DetailProduct />
             },
             {
                 path: "foods",

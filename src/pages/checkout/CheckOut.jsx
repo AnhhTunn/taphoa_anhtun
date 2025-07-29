@@ -17,34 +17,72 @@ const Checkout = () => {
         }));
     };
     const { cartItems, clearCart } = useCart();
+    const [singleCheckoutItem, setSingleCheckoutItem] = useState(null);
+
+    useEffect(() => {
+        const item = localStorage.getItem("checkoutItem");
+        if (item) {
+            setSingleCheckoutItem(JSON.parse(item));
+        }
+    }, []);
     const FeeShip = 30.99;
-    const totalPriceProducts = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const totalPrice = totalPriceProducts > 100 ? totalPriceProducts : totalPriceProducts + FeeShip
+    // const totalPriceProducts = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    // const totalPrice = totalPriceProducts > 100 ? totalPriceProducts : totalPriceProducts + FeeShip
+    const isSingleItem = !!singleCheckoutItem;
+    const items = isSingleItem ? [singleCheckoutItem] : cartItems;
+
+    const totalPriceProducts = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const totalPrice = totalPriceProducts > 100 ? totalPriceProducts : totalPriceProducts + FeeShip;
     const [orderSuccess, setOrderSuccess] = useState("");
+    // const handleOrder = () => {
+    //     const newOrder = {
+    //         id: 'HD' + Math.floor(Math.random() * 100000),
+    //         date: new Date().toISOString().split('T')[0],
+    //         total: totalPrice,
+    //         status: 'Đang xử lý',
+    //         items: cartItems.map(item => ({
+    //             name: item.title,
+    //             quantity: item.quantity,
+    //             price: item.price,
+    //             avatar: item.thumbnail
+    //         }))
+    //     };
+    //     const existingOrders = JSON.parse(localStorage.getItem("purchaseHistory")) || [];
+    //     const updatedOrders = [newOrder, ...existingOrders];
+    //     localStorage.setItem("purchaseHistory", JSON.stringify(updatedOrders));
+    //     setOrderSuccess("Đặt hàng thành công");
+
+    //     setTimeout(() => {
+    //         clearCart();
+    //         navigate("/profile/purchaseHistory");
+    //     }, 500);
+    // };
+
     const handleOrder = () => {
         const newOrder = {
             id: 'HD' + Math.floor(Math.random() * 100000),
             date: new Date().toISOString().split('T')[0],
             total: totalPrice,
             status: 'Đang xử lý',
-            items: cartItems.map(item => ({
+            items: items.map(item => ({
                 name: item.title,
                 quantity: item.quantity,
                 price: item.price,
                 avatar: item.thumbnail
             }))
         };
+
         const existingOrders = JSON.parse(localStorage.getItem("purchaseHistory")) || [];
         const updatedOrders = [newOrder, ...existingOrders];
         localStorage.setItem("purchaseHistory", JSON.stringify(updatedOrders));
         setOrderSuccess("Đặt hàng thành công");
 
         setTimeout(() => {
-            clearCart();
+            if (!isSingleItem) clearCart();
+            localStorage.removeItem("checkoutItem");
             navigate("/profile/purchaseHistory");
         }, 500);
     };
-
     const [profile, setProfile] = useState(null);
 
     useEffect(() => {
@@ -70,6 +108,7 @@ const Checkout = () => {
         }
     };
     setTimeout(() => setOrderSuccess(""), 5000);
+
     return (
         <>
             {orderSuccess && (
@@ -132,7 +171,7 @@ const Checkout = () => {
                                 <span>Giao hàng tiêu chuẩn</span>
                             </label>
 
-                            {cartItems.map(item => (
+                            {items.map(item => (
                                 <div key={item.id} className="flex gap-4 items-start mt-4 border-b pb-2">
                                     <img src={item.thumbnail} className="w-16 h-16 object-cover rounded" />
                                     <div className="flex flex-col text-sm">

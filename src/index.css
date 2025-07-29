@@ -1,4 +1,7 @@
 @import "tailwindcss";
+body {
+  font-family: 'Roboto', sans-serif;
+}
 .grid {
     width: 100%;
     display: block;
@@ -590,23 +593,29 @@
         margin-left: 91.66667%;
     }
 }
+
 @media screen and (max-width:740px) {
-    .header{
+    .header {
         padding: 0 10px;
     }
-    .search-mobile{
+
+    .search-mobile {
         padding: 5px;
     }
-    .search-mobile input{
+
+    .search-mobile input {
         height: 30px;
     }
-    .categories-mobile{
+
+    .categories-mobile {
         padding: 0 10px;
     }
-    .itemFooter{
+
+    .itemFooter {
         padding-bottom: 10px;
     }
-     .footer-mobile{
+
+    .footer-mobile {
         padding: 20px 10px 10px 10px;
         margin-top: 20px;
     }
