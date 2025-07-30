@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import ItemProduct from '../products/ItemProduct'
 import ico_heart from '../../assets/images/ico_heart.png'
-import ico_reload from '../../assets/images/ico_reload.png'
-import ico_search from '../../assets/images/ico_search.png'
 import active from '../../assets/images/ico_star_active.png'
 import gray from '../../assets/images/ico_star_gray.png'
 import getApi from '../../services/Products/ApiProducts'
 import { Box, Fade } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 const BestSeller = () => {
-    const listIcon = [ico_heart, ico_reload, ico_search]
+    const listIcon = [ico_heart]
     const star = { active, gray }
     const [products, setProducts] = useState([]);
     const [totalProduct, setTotal] = useState(null);
@@ -40,13 +38,27 @@ const BestSeller = () => {
 
             try {
                 const res = await getApi.fetchProducts(filterProduct);
-                const { products: fetchedProducts } = res;
+                const { products } = res;
 
-                const sorted = [...fetchedProducts].sort(
+                const sorted = [...products].sort(
                     (a, b) => b.minimumOrderQuantity - a.minimumOrderQuantity
                 );
-                const topSeller = sorted.slice(0, 8);
-                setProducts(topSeller);
+                const pickRandom = (arr, n) => {
+                    const max = Math.min(n, arr.length);
+                    const pickedIdx = new Set();
+                    const result = [];
+                    while (result.length < max) {
+                        const i = Math.floor(Math.random() * arr.length);
+                        if (!pickedIdx.has(i)) {
+                            pickedIdx.add(i);
+                            result.push(arr[i]);
+                        }
+                    }
+                    return result;
+                };
+                const topSeller = sorted.slice(0, 20);
+                const random = pickRandom(topSeller, 8)
+                setProducts(random);
             } catch (error) {
                 console.log("Lỗi khi load sản phẩm:", error);
             }
@@ -58,7 +70,7 @@ const BestSeller = () => {
 
     return (
         <>
-            <div className='pt-5'>
+            <div className='pt-5 onMobile'>
                 <Fade
                     in={true}
                     timeout={1500}

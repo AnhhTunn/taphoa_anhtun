@@ -1,5 +1,5 @@
 import { Alert, Box, Grow, Skeleton } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ImageWithSkeleton from './ImageWithSkeleton'
 import BtnItem from '../items/itemBtn/BtnItem'
 import { useNavigate } from 'react-router-dom'
@@ -10,12 +10,12 @@ const ItemProduct = (props) => {
     const dispatch = useDispatch();
     const { addToCart } = useCart();
     const { data, icon, star } = props
-    const { id, thumbnail, title, price, rating } = data
+    const { id, thumbnail, title, price, rating, discountPercentage } = data
     const { active, gray } = star
     const navigate = useNavigate();
 
     const [loaded, setLoaded] = useState(false)
-
+    const priceOriginal = (100 / (100 - discountPercentage)) * price
     const stars = []
     for (let i = 0; i < 5; i++) {
         stars.push(
@@ -27,7 +27,11 @@ const ItemProduct = (props) => {
         dispatch(setSelectedProduct(id));
         navigate(`/detail/${id}`);
     }
-    setTimeout(() => setAddCart(""), 2000)
+    useEffect(() => {
+        if (!addCart) return;
+        const t = setTimeout(() => setAddCart(""), 2000);
+        return () => clearTimeout(t);
+    }, [addCart]);
     return (
         <>
             {addCart && (
@@ -59,7 +63,17 @@ const ItemProduct = (props) => {
                                     </li>
                                 ))}
                             </ul>
-
+                            {discountPercentage > 0 && (
+                                <div className="absolute top-2 right-2 z-10">
+                                    <span
+                                        className="inline-flex items-center justify-center rounded-full bg-red-600 text-white text-[11px] font-semibold px-2.5 py-1 shadow-lg ring-1 ring-red-500/50"
+                                        aria-label={`Giảm ${Math.round(discountPercentage)}%`}
+                                        title={`Giảm ${Math.round(discountPercentage)}%`}
+                                    >
+                                        -{Math.round(discountPercentage)}%
+                                    </span>
+                                </div>
+                            )}
                             {/* Image with skeleton */}
                             <div className='rounded-xl overflow-hidden bg-[#ebebe9]' onClick={() => btnDetail(id)}>
                                 <ImageWithSkeleton src={thumbnail} alt="ảnh sản phẩm" onLoad={() => setLoaded(true)} />
@@ -78,8 +92,13 @@ const ItemProduct = (props) => {
                                     <span>{title}</span>
                                     <div className="mt-2 relative h-5 overflow-hidden p-3">
                                         <div className="absolute inset-x-0 mx-auto w-max group-hover:bottom-0 -bottom-5 transition-all duration-300">
-                                            <div className="font-bold text-[15px] text-center text-red-500">
-                                                {price} $
+                                            <div className='flex items-center gap-2'>
+                                                <p className="text-[15px] font-bold text-red-600">
+                                                    {price?.toLocaleString()} $
+                                                </p>
+                                                <p className="text-[15px] font-medium text-gray-500 line-through">
+                                                    {priceOriginal?.toLocaleString()}$
+                                                </p>
                                             </div>
                                             <BtnItem
                                                 classCss="cursor-pointer uppercase text-xs font-medium tracking-widest relative before:absolute before:bottom-0 before:w-0 before:h-[1px] before:bg-black before:left-0 hover:before:w-full before:transition-all before:duration-200"

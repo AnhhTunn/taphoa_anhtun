@@ -7,8 +7,8 @@ const Experience = () => {
             in={true}
             timeout={1500}
         >
-            <section className="pt-20 pb-20 mt-20 mb-9 bg-[#ebebe9]">
-                <div className="grid wide">
+            <section className="pt-10 pb-20 mt-10 mb-9 bg-[#ebebe9] ">
+                <div className="grid wide onMobile">
                     <div className="lg:flex items-center justify-between">
                         <div>
                             <p className="text-[14px] uppercase">Trải Nghiệm Người Dùng</p>

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import ico_heart from '../../assets/images/ico_heart.png'
-import ico_reload from '../../assets/images/ico_reload.png'
-import ico_search from '../../assets/images/ico_search.png'
 import active from '../../assets/images/ico_star_active.png'
 import gray from '../../assets/images/ico_star_gray.png'
 import getApi from '../../services/Products/ApiProducts';
@@ -11,7 +9,7 @@ import ItemProduct from '../../components/products/ItemProduct'
 
 const SellerItem = () => {
     const { onUpdateCounts, selectedCategory } = useOutletContext();
-    const listIcon = [ico_heart, ico_reload, ico_search]
+    const listIcon = [ico_heart]
     const star = { active, gray }
     const [products, setProducts] = useState([]);
     const [totalProduct, setTotal] = useState(null);

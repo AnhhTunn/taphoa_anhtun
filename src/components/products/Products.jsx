@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import getApi from '../../services/Products/ApiProducts';
 import { Box, Fade, Pagination, Select, MenuItem, FormControl } from '@mui/material';
 import ico_heart from '../../assets/images/ico_heart.png';
-import ico_reload from '../../assets/images/ico_reload.png';
-import ico_search from '../../assets/images/ico_search.png';
 import ItemProduct from './ItemProduct';
 import active from '../../assets/images/ico_star_active.png';
 import gray from '../../assets/images/ico_star_gray.png';
@@ -23,7 +21,7 @@ const Products = () => {
         limit: 12
     };
 
-    const listIcon = [ico_heart, ico_reload, ico_search];
+    const listIcon = [ico_heart];
     const star = { active, gray };
     const { categoryName } = useParams();
 
@@ -147,7 +145,7 @@ const Products = () => {
     return (
         <div>
             <div className='grid mb-3'>
-                <div className='row flex items-center h-full'>
+                <div className='row flex items-center h-full '>
                     <div className='col l-2 m-tablet-2 c-0'>
                         <span>Sắp xếp theo</span>
                     </div>
@@ -178,12 +176,14 @@ const Products = () => {
 
             <Fade in={true} timeout={1500}>
                 <Box>
-                    <div className='grid wide'>
+                    <div className='onMobile'>
+                        <div className='grid wide'>
                         <div className='row'>
                             {products.map(item => (
                                 <ItemProduct key={item.id} data={item} star={star} icon={listIcon} handleAddCart={btnAdd} />
                             ))}
                         </div>
+                    </div>
                     </div>
                 </Box>
             </Fade>
