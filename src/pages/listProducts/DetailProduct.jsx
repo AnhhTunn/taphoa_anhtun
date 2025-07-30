@@ -93,14 +93,19 @@ const DetailProduct = () => {
     if (id) loadDetail();
   }, [id])
   const btnBuy = (id) => {
-    console.log(id);
+    const user = localStorage.getItem("user");
+    if (!user) {
+      navigate("/login");
+    } else {
+      console.log(id);
 
-    const product = {
-      ...productDetail,
-      quantity: 1
-    };
-    localStorage.setItem("checkoutItem", JSON.stringify(product));
-    navigate("/checkout");
+      const product = {
+        ...productDetail,
+        quantity: 1
+      };
+      localStorage.setItem("checkoutItem", JSON.stringify(product));
+      navigate("/checkout");
+    }
   };
   const priceOriginal = (100 / (100 - discountPercentage)) * price
   const stars = []
